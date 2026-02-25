@@ -1,0 +1,7 @@
+.app-container {
+  padding: $mobile-padding;
+
+  @include respond-sm {
+    padding: 2rem;
+  }
+}
