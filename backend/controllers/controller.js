@@ -49,6 +49,6 @@ export const executeQuery = async(req,res)=>{
 
     } catch (error) {
         console.log(error)
-        res.status(500).json({success : false,error : error})
+        res.status(500).json({success : false,error : error.message})
     }
 }
