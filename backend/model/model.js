@@ -1,12 +1,8 @@
 import mongoose from 'mongoose'
+
 const schema = new mongoose.Schema({
     title : {
         type : String,
-        required : true
-    },
-    difficulty : {
-        type : String,
-        enum : ["Easy","Medium","Hard"],
         required : true
     },
     description : {
@@ -16,6 +12,20 @@ const schema = new mongoose.Schema({
     question : {
         type : String,
         required : true
+    },
+    sampleTables : [{
+        tableName : String,
+        columns : [
+            {
+                columnName : String,
+                dataType : String
+            }
+        ],
+        rows : [mongoose.Schema.Types.Mixed]
+    }],
+    expectedOutput : {
+        type : String,
+        value : mongoose.Schema.Types.Mixed
     }
 },{timestamps : true})
 

@@ -22,10 +22,6 @@ export const validation = (req,res,next)=>{
         }
     }
 
-    // to avoid user using multiple statement
-    if(upper.includes(';')){
-        return res.status(400).json({success : false, error : "Write only one statement"})
-    }
 
     next()
 }
