@@ -48,60 +48,75 @@ export function AssignmentPage(){
     if(loading) return <p>Loading...</p>
     
     return (
-        <div className="app-container">
-            <h2>{assignment.title}</h2>
-            <p><strong>Difficulty:</strong> {assignment.difficulty}</p>
-            <p>{assignment.question}</p>
-            <div>
-                <textarea
-                rows="6"
-                style={{width:"100%",padding:"0.5rem"}}
-                placeholder="Write your query here"
-                value={query}
-                onChange={(e)=>setQuery(e.target.value)}
-                ></textarea>
-            </div>
+  <div className="assignment-container">
+    <div className="top-section">
+      
+      <div className="question-panel">
+        <h2>{assignment.title}</h2>
+        <p className="difficulty">
+          Difficulty: {assignment.difficulty}
+        </p>
+        <p className="question-text">
+          {assignment.question}
+        </p>
+      </div>
 
-            <button onClick={handleExecute} disabled ={executing} style = {{marginTop : "1rem",padding : "0.5rem 1rem",cursor: "pointer"}}>
-                {executing ? "Executing": "Execute Query"}
-            </button>
+      <div className="editor-panel">
+        <textarea
+          className="sql-editor"
+          placeholder="Write your SQL query here..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
 
-            {
-                error && (
-                    <div style= {{marginTop: "1rem",color:"red"}}>
-                        <strong>Error :</strong> {error}
-                    </div>
-                )
-            }
+        <button
+          className="execute-btn"
+          onClick={handleExecute}
+          disabled={executing}
+        >
+          {executing ? "Executing..." : "Execute Query"}
+        </button>
+      </div>
 
-            {
-                result && result.success && (
-                    <div style={{marginTop: "1rem"}}>
-                        <p>
-                            <strong>Rows Returned : </strong> {result.rowCount}
-                        </p>
+    </div>
 
-                        <table border="1" cellPadding = "6">
-                            <thead>
-                                <tr>
-                                    {/* result.data is an array of objects  
-                                        [{…}, {…}, {…}, {…}]
-                                    */}
-                                    {/* object.keys will return an array  */}
-                                    {result.data.length > 0 && Object.keys(result.data[0]).map((key)=>(<th key = {key}>{key}</th>))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {result.data.map((row,index)=>(
-                                    <tr key = {index}> {Object.values(row).map((value,i)=>(
-                                        <td key = {i}> {value}</td>
-                                    ))}</tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                )
-            }
+    <div className="result-panel">
+      {error && (
+        <div className="error-box">
+          <strong>Error:</strong> {error}
         </div>
-    )
+      )}
+
+      {result && result.success && (
+        <>
+          <p className="rows-info">
+            Rows Returned: {result.rowCount}
+          </p>
+
+          <div className="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  {result.data.length > 0 &&
+                    Object.keys(result.data[0]).map((key) => (
+                      <th key={key}>{key}</th>
+                    ))}
+                </tr>
+              </thead>
+              <tbody>
+                {result.data.map((row, index) => (
+                  <tr key={index}>
+                    {Object.values(row).map((value, i) => (
+                      <td key={i}>{value}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+    </div>
+  </div>
+)
 }
