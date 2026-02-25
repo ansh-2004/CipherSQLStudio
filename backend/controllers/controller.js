@@ -1,6 +1,6 @@
 import { Assignment } from "../model/model.js";
 import { pool } from "../config/pg.js";
-
+import { model } from "../config/gemini.js";
 
 export const getAllAssignments = async (req,res)=>{
     try {
@@ -73,6 +73,8 @@ export const createTables = async(sampleTables)=> {
       .map(col => `${col.columnName} ${col.dataType}`)
       .join(", ");
 
+    console.log('column',column) // column id INTEGER, name TEXT, salary INTEGER, department TEXT
+
     await pool.query(
       `CREATE TABLE ${tableName} (${column})`
     );
@@ -84,11 +86,51 @@ export const createTables = async(sampleTables)=> {
       const placeholders = values
         .map((_, i) => `$${i + 1}`)
         .join(", ");
-
+      console.log('placeholder',placeholders) 
+      
+        // placeholder $1, $2, $3, $4
+        // placeholder $1, $2, $3, $4
+        // placeholder $1, $2, $3, $4
+        // placeholder $1, $2, $3, $4
       await pool.query(
         `INSERT INTO ${tableName} VALUES (${placeholders})`,
         values
       );
     }
+  }
+}
+
+export const getHint=async (req,res)=>{
+  try {
+    const {question,sampleTables,userQuery} = req.body
+    const schemaToText = sampleTables.map((st)=>{
+      const columns = st.columns.map(col => `${col.columnName} (${col.dataType})`).join(", ")
+      console.log("columns",columns)
+
+      return `Table : ${st.tableName}\nColumns: ${columns}`
+    }).join("\n\n")
+
+    console.log("schemaToText",schemaToText)
+    
+    const prompt = `You are a SQL tutor. Rules:
+                    - Do NOT provide the user final SQL query.
+                    - Do NOT provide the user exact solution of the question.
+                    - Only give the user hint and guidance to solve this question .
+                    - If user query is close to solution, guide him . 
+                    Question : ${question} Database Schema : ${schemaToText} user query : ${userQuery}. Your response should be short but helpful hint `
+
+    const result = await model.generateContent(prompt)
+    console.log('result',result)
+    const response = await result.response;
+    console.log('response',response)
+    const hint = response.text();
+    console.log('hint',hint)
+
+  
+    res.status(200).json({success : true,data : hint})
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({success : false,error : error.message})
   }
 }

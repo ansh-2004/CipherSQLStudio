@@ -7,12 +7,12 @@ export function AssignmentPage(){
     const {id} = useParams()
     const [assignment,setAssignment] = useState(null)
     const [loading,setLoading] = useState(true)
-
+    const [hintLoading, setHintLoading] = useState(false);
     const [query,setQuery] = useState("")
     const [result,setResult] = useState(null)
     const [error,setError] = useState(null)
     const [executing,setExecuting] = useState(false)
-
+    const [hint,setHint] = useState(null) 
     useEffect(()=>{
         async function getAssignment(){
             try {
@@ -33,6 +33,7 @@ export function AssignmentPage(){
         setExecuting(true)
         setError(null)
         setResult(null)
+        setHint(null); // old hint will not show now
 
         try {
             const res = await api.post('/assignments/execute',{query,id})
@@ -44,6 +45,29 @@ export function AssignmentPage(){
         }finally{
             setExecuting(false)
         }
+    }
+
+    async function handleHint(){
+
+      setHintLoading(true);
+      setHint(null);
+
+      try {
+        const res = await api.post('/assignments/gethint',{
+          question : assignment.question,
+          sampleTables : assignment.sampleTables,
+          userQuery : query
+        })
+
+
+        if(res.data.success){
+          setHint(res.data.data)
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setHintLoading(false);
+  }
     }
 
     if(loading) return <p>Loading...</p>
@@ -135,7 +159,7 @@ export function AssignmentPage(){
           {executing ? "Executing..." : "Execute Query"}
         </button>
 
-         <div className="result-panel">
+        <div className="result-panel">
       {error && (
         <div className="error-box">
           <strong>Error:</strong> {error}
@@ -171,8 +195,23 @@ export function AssignmentPage(){
           </div>
         </>
       )}
-    </div>
+        </div>
+
+        <button onClick={handleHint} disabled = {hintLoading} className="hint-btn">
+          {hintLoading ? "Generating Hint..." : "Get Hint"}
+        </button>
+
+
+        {hint && !hintLoading && (
+          <div className="hint-box">
+            <h4>Hint</h4>
+            <p>{hint}</p>
+          </div>
+        )}
+
       </div>
+
+      
 
     </div>
 
