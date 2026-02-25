@@ -35,7 +35,7 @@ export function AssignmentPage(){
         setResult(null)
 
         try {
-            const res = await api.post('/assignments/execute',{query})
+            const res = await api.post('/assignments/execute',{query,id})
             console.log('res of post query',res)
             setResult(res.data)
         } catch (error) {
