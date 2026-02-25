@@ -3,10 +3,13 @@ import express from 'express'
 import connectMongo from './config/mongo.js'
 import connectPG from './config/pg.js'
 import routes from './routes/route.js'
+import cors from 'cors'
 const app = express()
 const port = process.env.PORT
 
 app.use(express.json())
+app.use(cors())
+
 connectMongo()
 connectPG()
 
