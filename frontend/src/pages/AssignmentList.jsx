@@ -7,7 +7,7 @@ export function AssignmentList(){
     const [loading,setLoading] = useState(true)
 
     useEffect(()=>{
-        async function getAssignments(){
+        async function getAllAssignments(){
             try {
                 const res = await api.get("/assignments")
                 console.log(res)
@@ -21,7 +21,7 @@ export function AssignmentList(){
                 setLoading(false)
             }
         }
-        getAssignments()
+        getAllAssignments()
     },[])
 
     if(loading) return <p>Loading...</p>
