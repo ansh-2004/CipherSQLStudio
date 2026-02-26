@@ -1,0 +1,67 @@
+.auth {
+  min-height: calc(100vh - 60px); // adjust if navbar height differs
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: $bg-color;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: $card-bg;
+  padding: 1.5rem;
+  border-radius: $border-radius;
+  box-shadow: $shadow-sm;
+  border: 1px solid $border-color;
+}
+
+.auth-card h2 {
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-form input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+}
+
+.auth-form button {
+  min-height: 44px;
+  font-size: 0.95rem;
+  border-radius: $border-radius;
+  border: none;
+  background: $primary-color;
+  color: white;
+  cursor: pointer;
+}
+
+.auth-form button:hover {
+  background: $primary-hover;
+}
+
+
+@include respond-sm {
+  .auth-card {
+    padding: 2rem;
+  }
+}
+
+
+@include respond-md {
+  .auth-card {
+    max-width: 450px;
+  }
+}

@@ -1,0 +1,56 @@
+.navbar {
+  width: 100%;
+  background: $card-bg;
+  border-bottom: 1px solid $border-color;
+  padding: 0.8rem 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.navbar__left {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.navbar__left a {
+  text-decoration: none;
+  color: $secondary-color;
+}
+
+.navbar__right {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.navbar__right a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: $primary-color;
+}
+
+.navbar__right button {
+  min-height: 36px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: $border-radius;
+  background: $primary-color;
+  color: white;
+  cursor: pointer;
+}
+
+/* Tablet */
+@include respond-sm {
+  .navbar {
+    flex-wrap: nowrap;
+  }
+
+  .navbar__right {
+    margin-top: 0;
+  }
+}

@@ -3,6 +3,7 @@ import express from 'express'
 import connectMongo from './config/mongo.js'
 import connectPG from './config/pg.js'
 import routes from './routes/route.js'
+import authRoutes from './routes/authRoutes.js'
 import cors from 'cors'
 
 
@@ -22,7 +23,10 @@ app.get('/',(req,res)=>{
     res.send("api running successfuly")
 })
 
+app.use('/api/auth',authRoutes)
+
 app.use('/api/assignments',routes)
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 })

@@ -1,9 +1,14 @@
 
-body {
+html, body, #root {
   background-color: $bg-color;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: $text-color;
   margin: 0;
+  height: 100%;
+ 
+}
+body {
+  overflow-x: hidden;
 }
 
 .app-container {
@@ -29,17 +34,22 @@ body {
   }
 }
 
+
 .assignment-container {
-  padding: 1.5rem;
+  padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
+
+  @include respond-sm {
+    padding: 1.5rem;
+  }
 }
 
 .top-section {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-
+  width: 100%;
   @include respond-md {
     flex-direction: row;
     align-items: flex-start;
@@ -98,7 +108,7 @@ body {
 .editor-wrapper {
   border-radius: $border-radius;
   overflow: hidden;
-
+  width: 100%;
   @include respond-sm {
     min-height: 260px;
   }
@@ -159,6 +169,8 @@ body {
     color: $secondary-color;
   }
 }
+
+
 
 @media (max-width: 640px) {
   table th,

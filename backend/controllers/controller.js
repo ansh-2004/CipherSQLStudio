@@ -1,6 +1,7 @@
-import { Assignment } from "../model/model.js";
-import { pool } from "../config/pg.js";
-import { model } from "../config/gemini.js";
+import { Assignment } from "../model/model.js"
+import { pool } from "../config/pg.js"
+import { model } from "../config/gemini.js"
+import {Progress} from "../model/userProgress.js"
 
 export const getAllAssignments = async (req,res)=>{
     try {
@@ -54,6 +55,38 @@ export const executeQuery = async(req,res)=>{
         const result = await pool.query(query)
         console.log('result',result)
 
+        // now we store progress 
+
+        if(req.user){
+          const {userId} = req.user
+          console.log('req.user', req.user)
+          let progress = await Progress.findOne({userId,assignmentId : id})
+          
+          if(!progress){
+            progress = await Progress.create({
+              userId : userId,
+              assignmentId: id,
+              sqlQuery: query,
+              attemptCount: 1,
+              isCompleted: result.rowCount > 0
+            })
+          }else{
+            progress.sqlQuery = query;
+
+            progress.lastAttempt = new Date();
+
+            progress.attemptCount += 1;
+
+            if(result.rowCount > 0){
+              progress.isCompleted = true
+            }
+            
+            await progress.save();
+          }
+
+          
+
+        }
         res.status(200).json({success : true , rowCount : result.rowCount, data : result.rows})
 
     } catch (error) {
@@ -65,13 +98,13 @@ export const executeQuery = async(req,res)=>{
 
 export const createTables = async(sampleTables)=> {
   for (const table of sampleTables) {
-    const { tableName, columns, rows } = table;
+    const { tableName, columns, rows } = table
 
-    await pool.query(`DROP TABLE IF EXISTS ${tableName} CASCADE`);
+    await pool.query(`DROP TABLE IF EXISTS ${tableName} CASCADE`)
 
     const column = columns
       .map(col => `${col.columnName} ${col.dataType}`)
-      .join(", ");
+      .join(", ")
 
     console.log('column',column) // column id INTEGER, name TEXT, salary INTEGER, department TEXT
 
@@ -81,7 +114,7 @@ export const createTables = async(sampleTables)=> {
 
  
     for (const row of rows) {
-      const values = columns.map(col => row[col.columnName]);
+      const values = columns.map(col => row[col.columnName])
 
       const placeholders = values
         .map((_, i) => `$${i + 1}`)
@@ -95,7 +128,7 @@ export const createTables = async(sampleTables)=> {
       await pool.query(
         `INSERT INTO ${tableName} VALUES (${placeholders})`,
         values
-      );
+      )
     }
   }
 }
@@ -121,9 +154,9 @@ export const getHint=async (req,res)=>{
 
     const result = await model.generateContent(prompt)
     console.log('result',result)
-    const response = await result.response;
+    const response = await result.response
     console.log('response',response)
-    const hint = response.text();
+    const hint = response.text()
     console.log('hint',hint)
 
   
