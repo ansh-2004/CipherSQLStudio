@@ -1,4 +1,7 @@
-@import './variables';
-@import './mixins';
-@import './layout';
-@import './components';
+
+@import "abstracts/variables";
+@import "abstracts/mixins";
+@import "layout/layout";
+@import "components/assignment-card";
+@import "components/buttons";
+@import "components/tables";

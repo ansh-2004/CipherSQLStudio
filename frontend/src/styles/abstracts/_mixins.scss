@@ -9,3 +9,9 @@
     @content;
   }
 }
+
+@mixin respond-lg {
+  @media (min-width: 1281px) {
+    @content;
+  }
+}

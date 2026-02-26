@@ -29,12 +29,13 @@ export function AssignmentList(){
     return (
         <div className='app-container'>
             <h2>Assignments</h2>
-
+            <div className="assignment-list">
             {
                 assignments.map((assignment)=>{
                     return <Assignment key={assignment._id} assignment={assignment}></Assignment>
                 })
             }
+            </div>
         </div>
         
     )

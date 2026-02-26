@@ -1,0 +1,49 @@
+
+.execute-btn {
+  padding: 0.75rem 1rem;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: $shadow-sm;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-hover;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.hint-btn {
+  padding: 0.7rem 1rem;
+  background-color: white;
+  border: 1px solid $primary-color;
+  color: $primary-color;
+  border-radius: $border-radius;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #eff6ff;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.execute-btn,
+.hint-btn {
+  min-height: 44px;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  border-radius: $border-radius;
+}
