@@ -137,7 +137,7 @@ export function AssignmentPage(){
       <div className="editor-panel">
         <div className="editor-wrapper">
             <Editor
-                height="250px"
+                height="300px"
                 language="sql"
                 theme="vs-dark"
                 value={query}

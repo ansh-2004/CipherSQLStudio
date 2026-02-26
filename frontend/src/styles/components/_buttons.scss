@@ -42,8 +42,7 @@
 
 .execute-btn,
 .hint-btn {
-  min-height: 44px;
-  padding: 0.8rem 1rem;
-  font-size: 0.95rem;
-  border-radius: $border-radius;
+  width: 100%;        
+  min-height: 48px;   
+  font-size: 1rem;
 }

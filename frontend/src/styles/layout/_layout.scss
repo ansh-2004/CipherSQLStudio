@@ -5,7 +5,7 @@ html, body, #root {
   color: $text-color;
   margin: 0;
   height: 100%;
- 
+  
 }
 body {
   overflow-x: hidden;
@@ -13,27 +13,35 @@ body {
 
 .app-container {
   padding: 1rem;
-  max-width: 100%;
+  width: 100%;
 
   h2 {
     font-size: 1.4rem;
     margin-bottom: 1.2rem;
   }
+}
 
-  @include respond-sm {
+
+@media (min-width: 641px) {
+  .app-container {
     padding: 1.5rem;
-  }
-
-  @include respond-md {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-
-  @include respond-lg {
-    max-width: 1200px;
   }
 }
 
+
+@media (min-width: 1024px) {
+  .app-container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+}
+
+
+@media (min-width: 1281px) {
+  .app-container {
+    max-width: 1200px;
+  }
+}
 
 .assignment-container {
   padding: 1rem;
@@ -49,10 +57,22 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  width: 100%;
-  @include respond-md {
+}
+
+
+
+@media (min-width: 1024px) {
+  .top-section {
     flex-direction: row;
     align-items: flex-start;
+  }
+
+  .question-panel {
+    flex: 1.1;
+  }
+
+  .editor-panel {
+    flex: 0.9;
   }
 }
 
@@ -109,6 +129,7 @@ body {
   border-radius: $border-radius;
   overflow: hidden;
   width: 100%;
+  min-height: 300px;
   @include respond-sm {
     min-height: 260px;
   }

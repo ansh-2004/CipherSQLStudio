@@ -2,11 +2,11 @@
 .assignment-card {
   background: $card-bg;
   border-radius: $border-radius;
-  padding: 1.2rem;
+  padding: 1rem;
   margin-bottom: 1rem;
   box-shadow: $shadow-sm;
   border: 1px solid $border-color;
-  transition: 0.2s ease;
+  transition: 0.15s ease;
   cursor: pointer;
 
   &:hover {
@@ -15,7 +15,7 @@
   }
 
   &__title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     color: $secondary-color;
     margin-bottom: 0.3rem;
@@ -33,7 +33,7 @@
   }
 
   &__description {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: $text-muted;
     line-height: 1.4;
   }
