@@ -28,6 +28,6 @@ const schema = new mongoose.Schema({
   }
 });
 
-// schema.index({ userId: 1, assignmentId: 1 }, { unique: true });
+
 
 export const Progress = mongoose.model("Progress",schema)

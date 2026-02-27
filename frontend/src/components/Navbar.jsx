@@ -12,7 +12,7 @@ export function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar__left">
-        <Link to="/">SQL Practice</Link>
+        <Link to="/">CipherSQLStudio</Link>
       </div>
 
       <div className="navbar__right">
